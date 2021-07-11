@@ -26,19 +26,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // on startup the h2 database is populated with stuff below:
         // at runtime this datasource is used to verify user information
+
+//        auth.jdbcAuthentication()
+//                .dataSource(dataSource)
+//                .withDefaultSchema()
+//                .withUser(
+//                        User.withUsername("user")
+//                        .password("pass")
+//                        .roles("USER")
+//                )
+//                .withUser(
+//                        User.withUsername("admin")
+//                        .password("pass")
+//                        .roles("ADMIN")
+//                );
+
+        // database and schema and users populated should all be present
+        // and here just point to the dataSource to connect to for authentication
         auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .withDefaultSchema()
-                .withUser(
-                        User.withUsername("user")
-                        .password("pass")
-                        .roles("USER")
-                )
-                .withUser(
-                        User.withUsername("admin")
-                        .password("pass")
-                        .roles("ADMIN")
-                );
+                .dataSource(dataSource);
+
     }
 
     @Override
