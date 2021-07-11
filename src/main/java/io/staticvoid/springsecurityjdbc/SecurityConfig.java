@@ -43,8 +43,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // database and schema and users populated should all be present
         // and here just point to the dataSource to connect to for authentication
+//        auth.jdbcAuthentication()
+//                .dataSource(dataSource);
+
+        // you can tell spring security if you have a different schema so that Spring Security knows
+        // what tables to query and how to query:
+
+        // these two methods allow you to pass queries
+
+        // just point spring secuity to the datasource and tell it what queries to run
         auth.jdbcAuthentication()
-                .dataSource(dataSource);
+                .dataSource(dataSource)
+                .usersByUsernameQuery("select username, password, enabled "
+                + "from users "
+                        + "where username = ?")
+                .authoritiesByUsernameQuery("select username, authority "
+                    + "from authorities "
+                        + "where username = ?");
+
 
     }
 
